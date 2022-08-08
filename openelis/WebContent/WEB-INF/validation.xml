@@ -2855,5 +2855,10 @@
                 </var>
             </field>
         </form>
+
+    </formset>
+    <formset>
+        <form name="AnalyzerResultsForm">
+        </form>
     </formset>
 </form-validation>

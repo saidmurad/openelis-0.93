@@ -37,6 +37,7 @@ public class AnalyzerTestNameCache {
 	
 	private static final String COBAS_INTEGRA400_NAME = "Cobas Integra";
 	private static final String SYSMEX_XT2000_NAME = "Sysmex XT 2000";
+	private static final String Mindray_3452_NAME = "Mindray 3452";
 	private static final String FACSCALIBUR = "Facscalibur";
 	private static final String FACSCANTO = "FacsCanto";
 	private static final String EVOLIS = "Evolis";
@@ -47,6 +48,7 @@ public class AnalyzerTestNameCache {
 	public static enum AnalyzerType {
 		COBAS_INTEGRA400,
 		SYSMEX_XT_2000,
+		Mindray_3452,
 		FACSCALIBUR,
 		EVOLIS,
 		COBAS_TAQMAN,
@@ -58,6 +60,7 @@ public class AnalyzerTestNameCache {
 	private static Map<String, MappedTestName> CobasIntegraTestNameMap;
 	private static Map<String, MappedTestName> CobasTaqmanTestNameMap;
 	private static Map<String, MappedTestName> SysmexXT2000TestNameMap;
+	private static Map<String, MappedTestName> Mindray3452TestNameMap;
 	private static Map<String, MappedTestName> FacscaliburTestNameMap;
 	private static Map<String, MappedTestName> EvolisTestNameMap;
 	private static Map<String, MappedTestName> FacscantoTestNameMap;
@@ -84,6 +87,8 @@ public class AnalyzerTestNameCache {
 			return CobasIntegraTestNameMap.get(analyzerTestName);
 		case SYSMEX_XT_2000:
 			return SysmexXT2000TestNameMap.get(analyzerTestName);
+		case Mindray_3452:
+			return Mindray3452TestNameMap.get(analyzerTestName);
 		case FACSCALIBUR:
 			return FacscaliburTestNameMap.get(analyzerTestName);
 		case EVOLIS:
@@ -116,6 +121,8 @@ public class AnalyzerTestNameCache {
 			return CobasIntegraTestNameMap;
 		case SYSMEX_XT_2000:
 			return SysmexXT2000TestNameMap;
+		case Mindray_3452:
+			return Mindray3452TestNameMap;
 		case FACSCALIBUR:
 			return FacscaliburTestNameMap;
 		case EVOLIS:
@@ -144,6 +151,7 @@ public class AnalyzerTestNameCache {
 
 		CobasIntegraTestNameMap = new HashMap<String,MappedTestName>();
 		SysmexXT2000TestNameMap = new HashMap<String,MappedTestName>();
+		Mindray3452TestNameMap = new HashMap<String,MappedTestName>();
 		FacscaliburTestNameMap = new HashMap<String,MappedTestName>();
 		EvolisTestNameMap = new HashMap<String,MappedTestName>();
 		CobasTaqmanTestNameMap = new HashMap<String, MappedTestName>();
@@ -163,6 +171,9 @@ public class AnalyzerTestNameCache {
 			}else if( SYSMEX_XT2000_NAME.equals(analyzer.getName())){
 				analyzerMapList.put(analyzer.getId(), SysmexXT2000TestNameMap);
 				analyzerIDMap.put(AnalyzerType.SYSMEX_XT_2000, analyzer.getId());
+			}else if( Mindray_3452_NAME.equals(analyzer.getName())){
+				analyzerMapList.put(analyzer.getId(), Mindray3452TestNameMap);
+				analyzerIDMap.put(AnalyzerType.Mindray_3452, analyzer.getId());
 			}else if( FACSCALIBUR.equals(analyzer.getName())){
 				analyzerMapList.put(analyzer.getId(), FacscaliburTestNameMap);
 				analyzerIDMap.put(AnalyzerType.FACSCALIBUR, analyzer.getId());

@@ -21,6 +21,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.validator.GenericValidator;
 import org.hibernate.Transaction;
 
@@ -34,6 +35,10 @@ import us.mn.state.health.lims.common.util.DAOImplFactory;
 import us.mn.state.health.lims.common.util.DateUtil;
 import us.mn.state.health.lims.common.util.HibernateProxy;
 
+import us.mn.state.health.lims.sample.dao.SampleDAO;
+import us.mn.state.health.lims.sample.daoimpl.SampleDAOImpl;
+import us.mn.state.health.lims.sample.valueholder.Sample;
+
 @SuppressWarnings("unused")
 public class SysmexReader extends AnalyzerLineInserter {
 
@@ -41,6 +46,37 @@ public class SysmexReader extends AnalyzerLineInserter {
 
 	private static int index = 0;
 	private static final int ID_INSTRUMENT = index++;
+	private static final int DATE = index++;
+	private static final int TIME = index++;
+	private static final int ACCESSION = index++;
+	private static final int WBC = index++;
+	private static final int RBC = index++;
+	private static final int PLT = index++;
+	private static final int HGB = index++;
+	private static final int LYM = index++;
+	private static final int MON = index++;
+	private static final int NEU = index++;
+	private static final int EO = index++;
+	private static final int BAS = index++;
+	private static final int LYM_PER = index++;
+	private static final int MON_PER = index++;
+	private static final int NEU_PER = index++;
+	private static final int EO_PER = index++;
+	private static final int BAS_PER = index++;
+	private static final int HCT = index++;
+	private static final int MCV = index++;
+	private static final int MCH = index++;
+	private static final int MCHC = index++;
+	private static final int RDWsd = index++;
+	private static final int RDWcv = index++;
+	private static final int PDWsd = index++;
+	private static final int PDWcv = index++;
+	private static final int MPV = index++;
+	private static final int PCT = index++;
+	private static final int PLCR = index++;
+	private static final int PLCC = index++;
+
+	/*private static final int ID_INSTRUMENT = index++;
 	private static final int DATE = index++;
 	private static final int TIME = index++;
 	private static final int RACK = index++;
@@ -78,6 +114,7 @@ public class SysmexReader extends AnalyzerLineInserter {
 	private static final int TRANSMISSION_PARMS = index++;
 	private static final int SEQUENECE_COUNT = index++;
 	private static final int GB_10_uL = index++;
+    private static final int GB_10_uL = index++;
 	private static final int GB_M = index++;
 	private static final int GR_100000_uL = index++;
 	private static final int GR_M = index++;
@@ -211,7 +248,7 @@ public class SysmexReader extends AnalyzerLineInserter {
 	private static final int Qflag_Def_HGB = index++;
 	private static final int Qflag_Fragments = index++;
 	private static final int Qflag_Agg_PLQ = index++;
-	private static final int Qflag_Agg_PLQ_S = index++;
+	private static final int Qflag_Agg_PLQ_S = index++; */
 	private static final int columns = index++;
 
 	private static final String DELIMITER = ",";
@@ -221,10 +258,10 @@ public class SysmexReader extends AnalyzerLineInserter {
 	private static String[] unitsIndex = new String[columns];
 	private static Boolean[] readOnlyIndex = new Boolean[columns];
 	private static int[] scaleIndex = new int[columns];
-	private static int[] orderedTestIndexs = new int[18];
+	private static int[] orderedTestIndexs = new int[19];
 
 	{
-		testNameIndex[GB_10_uL] = "GB_10_uL";
+		/*testNameIndex[GB_10_uL] = "GB_10_uL";
 		testNameIndex[GR_100000_uL] = "GR_100000_uL";
 		testNameIndex[NEUT_PER_10_NEG_1_PER] = "NEUT_PER_10_NEG_1_PER";
 		testNameIndex[HBG_g_L] = "HBG_g_L";
@@ -238,83 +275,148 @@ public class SysmexReader extends AnalyzerLineInserter {
 		testNameIndex[CCMH_g_L] = "CCMH_g_L";
 		testNameIndex[PLQ_10_3_uL] = "PLQ_10_3_uL";
 
-	/*	testNameIndex[NEUT_COUNT_10_uL] = "NE#";
+		testNameIndex[NEUT_COUNT_10_uL] = "NE#";
 		testNameIndex[MONO_COUNT_10_uL] = "MO#";
 		testNameIndex[BASO_COUNT_10_uL] = "BA#";
 		testNameIndex[LYMPH_COUNT_10_uL] = "LY#";
 		testNameIndex[EO_COUNT_10_uL] = "EO#";
-	 */
+		testNameIndex[IDR_SD_10_NEG_1_fL] = "Platelet_Count";
+		testNameIndex[IDR_CV_10_NEG_1_PER] = "ESR"; */
 
-		unitsIndex[GB_10_uL] = "10^3/ul";
-		unitsIndex[GR_100000_uL] = "10^6/ul";
-		unitsIndex[NEUT_PER_10_NEG_1_PER] = "%";
-		unitsIndex[HBG_g_L] = "g/dl";
-		unitsIndex[LYMPH_PER_10_NEG_1_PER] = "%";
-		unitsIndex[HCT_10_NEG_1_PER] = "%";
-		unitsIndex[MONO_PER_10_NEG_1_PER] = "%";
-		unitsIndex[VGM_10_NEG_1_fL] = "fl";
-		unitsIndex[EO_PER_10_NEG_1_PER] = "%";
-		unitsIndex[TCMH_10_NEG_1_pg] = "pg";
-		unitsIndex[BASO_PER_10_NEG_1_PER] = "%";
-		unitsIndex[CCMH_g_L] = "g/l";
-		unitsIndex[PLQ_10_3_uL] = "10^3/ul";
+		testNameIndex[WBC] = "WBC";
+		testNameIndex[RBC] = "RBC";
+		testNameIndex[PLT] = "PLT";
+		testNameIndex[HGB] = "HGB";
+		testNameIndex[LYM] = "LYM";
+		testNameIndex[MON] = "MON";
+		testNameIndex[NEU] = "NEU";
+		testNameIndex[EO] = "EO";
+		testNameIndex[BAS] = "BAS";
+		testNameIndex[LYM_PER] = "LYM%";
+		testNameIndex[MON_PER] = "MON%";
+		testNameIndex[NEU_PER] = "NEU%";
+		testNameIndex[EO_PER] = "EO%";
 
-	/*	unitsIndex[NEUT_COUNT_10_uL] = " ";
-		unitsIndex[MONO_COUNT_10_uL] = " ";
-		unitsIndex[BASO_COUNT_10_uL] = " ";
-		unitsIndex[LYMPH_COUNT_10_uL] = " ";
-		unitsIndex[EO_COUNT_10_uL] = " ";
-    */
+		testNameIndex[BAS_PER] = "BAS%";
+		testNameIndex[HCT] = "HCT";
+		testNameIndex[MCV] = "MCV";
+		testNameIndex[MCH] = "MCH";
+		testNameIndex[MCHC] = "MCHC";
+		//testNameIndex[RDWsd] = "RDWsd";
+		testNameIndex[RDWcv] = "RDWcv";
+
+		testNameIndex[MPV] = "MPV";
+
+        /*testNameIndex[PDWsd] = "PDWsd";
+        testNameIndex[PDWcv] = "PDWcv";
+        testNameIndex[MPV] = "MPV";
+        testNameIndex[PCT] = "PCT";
+        testNameIndex[PLCR] = "PLCR";
+        testNameIndex[PLCC] = "PLCC"; */
+
+
+
+		unitsIndex[WBC] = "10^3/ul";
+		unitsIndex[RBC] = "10^6/ul";
+		unitsIndex[PLT] = "10^3/ul";
+		unitsIndex[HGB] = "g/dl";
+		unitsIndex[LYM] = "10^3/ul";
+		unitsIndex[MON] = "10^3/ul";
+		unitsIndex[NEU] = "10^3/ul";
+		unitsIndex[EO] = "10^3/ul";
+		unitsIndex[BAS] = "10^3/ul";
+		unitsIndex[LYM_PER] = "%";
+		unitsIndex[MON_PER] = "%";
+		unitsIndex[NEU_PER] = "%";
+		unitsIndex[EO_PER] = "%";
+
+		unitsIndex[BAS_PER] = "%";
+		unitsIndex[HCT] = "%";
+		unitsIndex[MCV] = "fl";
+		unitsIndex[MCH] = "pg";
+		unitsIndex[MCHC] = "g/dl";
+		//unitsIndex[RDWsd] = " ";
+		unitsIndex[RDWcv] = "%";
+
+		unitsIndex[MPV] = "%";
+
+/*		unitsIndex[PDWsd] = " ";
+        unitsIndex[PDWcv] = " ";
+        unitsIndex[MPV] = " ";
+        unitsIndex[PCT] = " ";
+        unitsIndex[PLCR] = " ";
+        unitsIndex[PLCC] = " "; */
+
 		for( int i = 0; i < readOnlyIndex.length; i++){
 			readOnlyIndex[i] = Boolean.FALSE;
 		}
-
-	/*	readOnlyIndex[NEUT_COUNT_10_uL] = Boolean.TRUE;
+/*
+		readOnlyIndex[NEUT_COUNT_10_uL] = Boolean.TRUE;
 		readOnlyIndex[MONO_COUNT_10_uL] = Boolean.TRUE;
 		readOnlyIndex[BASO_COUNT_10_uL] = Boolean.TRUE;
 		readOnlyIndex[LYMPH_COUNT_10_uL] = Boolean.TRUE;
 		readOnlyIndex[EO_COUNT_10_uL] = Boolean.TRUE;
-   */
-		scaleIndex[GB_10_uL] = 100;
-		scaleIndex[GR_100000_uL] = 100;
-		scaleIndex[NEUT_PER_10_NEG_1_PER] = 10;
-		scaleIndex[HBG_g_L] = 10;
-		scaleIndex[LYMPH_PER_10_NEG_1_PER] = 10;
-		scaleIndex[HCT_10_NEG_1_PER] = 10;
-		scaleIndex[MONO_PER_10_NEG_1_PER] = 10;
-		scaleIndex[VGM_10_NEG_1_fL] = 10;
-		scaleIndex[EO_PER_10_NEG_1_PER] = 10;
-		scaleIndex[TCMH_10_NEG_1_pg] = 10;
-		scaleIndex[BASO_PER_10_NEG_1_PER] = 10;
-		scaleIndex[CCMH_g_L] = 10;
-		scaleIndex[PLQ_10_3_uL] = 1;
-	/*	scaleIndex[NEUT_COUNT_10_uL] = 100;
-		scaleIndex[MONO_COUNT_10_uL] = 100;
-		scaleIndex[BASO_COUNT_10_uL] = 10;
-		scaleIndex[LYMPH_COUNT_10_uL] = 100;
-		scaleIndex[EO_COUNT_10_uL] = 100;
-    */
+*/
+		scaleIndex[WBC] = 1;
+		scaleIndex[RBC] = 1;
+		scaleIndex[PLT] = 1;
+		scaleIndex[HGB] = 1;
+		scaleIndex[LYM] = 1;
+		scaleIndex[MON] = 1;
+		scaleIndex[NEU] = 1;
+		scaleIndex[EO] = 1;
+		scaleIndex[BAS] = 1;
+		scaleIndex[LYM_PER] = 1;
+		scaleIndex[MON_PER] = 1;
+		scaleIndex[NEU_PER] = 1;
+		scaleIndex[EO_PER] = 1;
+		scaleIndex[BAS_PER] = 1;
+		scaleIndex[HCT] = 1;
+		scaleIndex[MCV] = 1;
+		scaleIndex[MCH] = 1;
+		scaleIndex[MCHC] = 1;
+		scaleIndex[RDWsd] = 1;
+		scaleIndex[RDWcv] = 1;
 
-		orderedTestIndexs[0] =GB_10_uL;
-		orderedTestIndexs[6] = GR_100000_uL;
-		orderedTestIndexs[1] = NEUT_PER_10_NEG_1_PER;
-		orderedTestIndexs[7] = HBG_g_L;
-		orderedTestIndexs[2] = LYMPH_PER_10_NEG_1_PER;
-		orderedTestIndexs[8] = HCT_10_NEG_1_PER;
-		orderedTestIndexs[3] = MONO_PER_10_NEG_1_PER;
-		orderedTestIndexs[9] = VGM_10_NEG_1_fL;
-		orderedTestIndexs[4] = EO_PER_10_NEG_1_PER;
-		orderedTestIndexs[10] = TCMH_10_NEG_1_pg;
-		orderedTestIndexs[5] = BASO_PER_10_NEG_1_PER;
-		orderedTestIndexs[11] = CCMH_g_L;
-		orderedTestIndexs[12] = PLQ_10_3_uL;
+		scaleIndex[MPV] = 1;
 
-		orderedTestIndexs[13] = NEUT_COUNT_10_uL;
-		orderedTestIndexs[15] = MONO_COUNT_10_uL;
-		orderedTestIndexs[17] = BASO_COUNT_10_uL;
-		orderedTestIndexs[14] = LYMPH_COUNT_10_uL;
-		orderedTestIndexs[16] = EO_COUNT_10_uL;
-    
+		/*scaleIndex[PDWsd] = 1;
+        scaleIndex[PDWcv] = 1;
+        scaleIndex[MPV] = 1;
+        scaleIndex[PCT] = 1;
+        scaleIndex[PLCR] = 1;
+        scaleIndex[PLCC] = 1; */
+
+
+
+		orderedTestIndexs[0] =WBC;
+		orderedTestIndexs[1] = RBC;
+		orderedTestIndexs[2] = PLT;
+		orderedTestIndexs[3] = HGB;
+		orderedTestIndexs[4] = LYM;
+		orderedTestIndexs[5] = MON;
+		orderedTestIndexs[6] = NEU;
+		orderedTestIndexs[7] = EO;
+		orderedTestIndexs[8] = BAS;
+		orderedTestIndexs[9] = LYM_PER;
+		orderedTestIndexs[10] = MON_PER;
+		orderedTestIndexs[11] = NEU_PER;
+		orderedTestIndexs[12] = EO_PER;
+
+		orderedTestIndexs[13] = BAS_PER;
+		orderedTestIndexs[14] = HCT;
+		orderedTestIndexs[15] = MCV;
+		orderedTestIndexs[16] = MCH;
+		orderedTestIndexs[17] = MCHC;
+		orderedTestIndexs[18] = RDWcv;
+
+		/*orderedTestIndexs[20] = PDWsd;
+        orderedTestIndexs[21] = PDWcv;
+        orderedTestIndexs[22] = MPV;
+        orderedTestIndexs[23] = PCT;
+        orderedTestIndexs[24] = PLCR;
+        orderedTestIndexs[25] = PLCC;*/
+
 
 		/*
 		GB_10_uL              WBC   100
@@ -336,17 +438,20 @@ public class SysmexReader extends AnalyzerLineInserter {
 		BASO_COUNT_10_uL      BA#    10
 		LYMPH_COUNT_10_uL     LY#   100
 		EO_COUNT_10_uL        EO#   100
+		IDR_SD_10_NEG_1_FL    Platelet Count
+		IDR_CV_10_NEG_1_PER	  ESR
 		 */
 	}
 
-	public boolean insert(List<String> lines, String currentUserId) {
+	private SampleDAO sampleDAO = new SampleDAOImpl();
 
+	public boolean insert(List<String> lines, String currentUserId) {
 		boolean successful = true;
 
 		List<AnalyzerResults> results = new ArrayList<AnalyzerResults>();
 
 		for (int i = 1; i < lines.size(); i++) {
-			addAnalyzerResultFromLine(results, lines.get(i));
+			addAnalyzerResultFromLine(results, lines);
 		}
 
 		if (results.size() > 0) {
@@ -370,24 +475,31 @@ public class SysmexReader extends AnalyzerLineInserter {
 		return successful;
 	}
 
-	private void addAnalyzerResultFromLine(List<AnalyzerResults> results, String line) {
-		String[] fields = line.split(DELIMITER);
+	private void addAnalyzerResultFromLine(List<AnalyzerResults> results, List<String> lines) {
+		String[] header = lines.get(0).split(DELIMITER);
+		String[] fields = lines.get(1).split(DELIMITER);
+		String analyzerAccessionNumber = fields[ACCESSION];
+
+		// Check if sample already exists
+		Sample sample = sampleDAO.getSampleByAccessionNumber(analyzerAccessionNumber);
+		if( sample == null)
+			return;
 
 		AnalyzerReaderUtil readerUtil = new AnalyzerReaderUtil();
-		String analyzerAccessionNumber = fields[ACCESSION];
+
 		Timestamp timestamp = DateUtil.convertStringDateToTimestampWithPattern(fields[DATE] + " " + fields[TIME], DATE_PATTERN);
 
 		List<AnalyzerResults> readOnlyResults = new ArrayList<AnalyzerResults>();
 
 		//the reason for the indirection is to get the order of tests correct
-		for (int i = 0; i < orderedTestIndexs.length; i++) {
-			int testIndex = orderedTestIndexs[i];
-
-			if (!GenericValidator.isBlankOrNull(testNameIndex[testIndex])) {
-				MappedTestName mappedName = AnalyzerTestNameCache.instance().getMappedTest(AnalyzerType.SYSMEX_XT_2000, testNameIndex[testIndex]);
+		for (int i = 4; i < header.length; i++) {
+			String testName = header[i];
+			String testResult = fields[i];
+			if (!GenericValidator.isBlankOrNull(header[i])) {
+				MappedTestName mappedName = AnalyzerTestNameCache.instance().getMappedTest(AnalyzerType.SYSMEX_XT_2000, testName);
 
 				if( mappedName == null){
-					mappedName = AnalyzerTestNameCache.instance().getEmptyMappedTestName(AnalyzerType.SYSMEX_XT_2000, testNameIndex[testIndex]);
+					mappedName = AnalyzerTestNameCache.instance().getEmptyMappedTestName(AnalyzerType.SYSMEX_XT_2000, testName);
 				}
 
 				AnalyzerResults analyzerResults = new AnalyzerResults();
@@ -397,18 +509,18 @@ public class SysmexReader extends AnalyzerLineInserter {
 				double result = Double.NaN;
 
 				try{
-					result = Double.parseDouble(fields[testIndex])/scaleIndex[testIndex];
+					result = Double.parseDouble(testResult)/ scaleIndex[ArrayUtils.indexOf(testNameIndex, testName)];
 				}catch( NumberFormatException nfe){
 					//no-op -- defaults to NAN
 				}
 
 				analyzerResults.setResult(String.valueOf(result));
-				analyzerResults.setUnits(unitsIndex[testIndex]);
+				analyzerResults.setUnits(unitsIndex[ArrayUtils.indexOf(testNameIndex, testName)]);
 				analyzerResults.setCompleteDate(timestamp);
 				analyzerResults.setTestId(mappedName.getTestId());
 				analyzerResults.setAccessionNumber(analyzerAccessionNumber);
 				analyzerResults.setTestName(mappedName.getOpenElisTestName());
-				analyzerResults.setReadOnly(readOnlyIndex[testIndex]);
+				analyzerResults.setReadOnly(readOnlyIndex[ArrayUtils.indexOf(testNameIndex, testName)]);
 
 				if (analyzerAccessionNumber != null) {
 					analyzerResults.setIsControl(analyzerAccessionNumber.startsWith(CONTROL_ACCESSION_PREFIX));

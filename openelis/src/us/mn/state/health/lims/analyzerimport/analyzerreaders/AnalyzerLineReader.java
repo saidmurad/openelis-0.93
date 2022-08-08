@@ -24,7 +24,7 @@ import java.util.List;
 
 public class AnalyzerLineReader extends AnalyzerReader {
 
-	private static final String COBAS_INDICATOR = "COBAS INTEGRA400";
+	private static final String COBAS_INDICATOR = "COBAS";
 	private static final CharSequence SYSMEX_XT_INDICATOR = "XT-2000";
 	private static final CharSequence FACSCALIBUR_INDICATOR = "MultiSET";
 	private static final CharSequence EVOLIS_INTEGRAL_INDICATOR = "DBehring Enzygnost HIV integral II";
@@ -82,7 +82,7 @@ public class AnalyzerLineReader extends AnalyzerReader {
 		//being sent
 
 		
-		if( lines.get(0).contains(COBAS_INDICATOR)){ //Cobas is found on the first line
+		if( lines.get(1).contains(COBAS_INDICATOR)){ //Cobas is found on the first line
 			inserter = new CobasReader();
 		}else if( lines.get(0).contains(EVOLIS_INTEGRAL_INDICATOR) ||
 				  lines.get(0).contains(EVOLIS_INTEGRAL_DBS_INDICATOR) || 

@@ -494,6 +494,12 @@ public class AnalyzerResultsAction extends BaseAction {
 			key = "banner.menu.results.sysmex";
 			break;
 		}
+
+		case Mindray_3452: {
+			key = "banner.menu.results.mindray";
+			break;
+		}
+
 		case FACSCALIBUR: {
 			key = "banner.menu.results.facscalibur";
 			break;
@@ -533,7 +539,10 @@ public class AnalyzerResultsAction extends BaseAction {
 				analyzerType = AnalyzerType.SYSMEX_XT_2000;
 			} else if (requestType.equals("cobas_integra")) {
 				analyzerType = AnalyzerType.COBAS_INTEGRA400;
-			} else if (requestType.equals("facscalibur")) {
+			} else if (requestType.equals("mindray")) {
+				analyzerType = AnalyzerType.Mindray_3452;
+			}
+			else if (requestType.equals("facscalibur")) {
 				analyzerType = AnalyzerType.FACSCALIBUR;
 			} else if (requestType.equals("evolis")) {
 				analyzerType = AnalyzerType.EVOLIS;
