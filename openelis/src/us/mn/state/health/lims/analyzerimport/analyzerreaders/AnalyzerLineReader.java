@@ -26,6 +26,7 @@ public class AnalyzerLineReader extends AnalyzerReader {
 
 	private static final String COBAS_INDICATOR = "COBAS";
 	private static final CharSequence SYSMEX_XT_INDICATOR = "XT-2000";
+	private static final CharSequence MINDRAY_INDICATOR = "Mindray";
 	private static final CharSequence FACSCALIBUR_INDICATOR = "MultiSET";
 	private static final CharSequence EVOLIS_INTEGRAL_INDICATOR = "DBehring Enzygnost HIV integral II";
 	private static final CharSequence EVOLIS_INTEGRAL_DBS_INDICATOR = "DBehring Enzygnost HIV integral IIDBS";
@@ -91,6 +92,8 @@ public class AnalyzerLineReader extends AnalyzerReader {
 			inserter = new EvolisReader();
 		}else if( lines.get(1) != null && lines.get(1).contains(SYSMEX_XT_INDICATOR)){ //Sysmex model found on data line
 			inserter = new SysmexReader();
+		}else if( lines.get(1) != null && lines.get(1).contains(MINDRAY_INDICATOR)){ //Sysmex model found on data line
+			inserter = new MindrayReader();
 		}else if( lines.get(1) != null && lines.get(1).contains(FACSCALIBUR_INDICATOR)){ //Fascalibur software found on data line
 			inserter = new FacscaliburReader();
 		}else if( lines.get(1) != null && (lines.get(1).contains(COBAS_TAQMAN_INDICATOR) || 
