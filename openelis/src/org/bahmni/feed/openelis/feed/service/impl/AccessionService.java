@@ -197,8 +197,12 @@ public class AccessionService {
     }
 
     private void setResultDetail(TestDetail testDetail, Result result) {
-        ResultSignature resultSignature = (ResultSignature) result.getResultSignatures().toArray()[0];
-        testDetail.setProviderUuid(resultSignature.getSystemUser().getExternalId());
+        if (result.getResultSignatures().toArray().length > 0) {
+            ResultSignature resultSignature = (ResultSignature) result.getResultSignatures().toArray()[0];
+            testDetail.setProviderUuid(resultSignature.getSystemUser().getExternalId());
+        } else {
+            testDetail.setProviderUuid("1");
+        }
         addRecentNotes(result.getId(), testDetail);
         testDetail.setMinNormal(result.getMinNormal() != null && result.getMinNormal() != Double.NEGATIVE_INFINITY ? result.getMinNormal() : null);
         testDetail.setMaxNormal(result.getMaxNormal() != null && result.getMaxNormal() != Double.POSITIVE_INFINITY ? result.getMaxNormal() : null);
