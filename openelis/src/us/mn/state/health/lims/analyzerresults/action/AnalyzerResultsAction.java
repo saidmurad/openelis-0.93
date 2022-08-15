@@ -499,6 +499,10 @@ public class AnalyzerResultsAction extends BaseAction {
 			key = "banner.menu.results.mindray";
 			break;
 		}
+		case Dxh_800: {
+			key = "banner.menu.results.dxh";
+			break;
+		}
 
 		case FACSCALIBUR: {
 			key = "banner.menu.results.facscalibur";
@@ -541,6 +545,8 @@ public class AnalyzerResultsAction extends BaseAction {
 				analyzerType = AnalyzerType.COBAS_INTEGRA400;
 			} else if (requestType.equals("mindray")) {
 				analyzerType = AnalyzerType.Mindray_3452;
+			} else if (requestType.equals("dxh")) {
+				analyzerType = AnalyzerType.Dxh_800;
 			}
 			else if (requestType.equals("facscalibur")) {
 				analyzerType = AnalyzerType.FACSCALIBUR;
