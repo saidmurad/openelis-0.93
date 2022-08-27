@@ -201,7 +201,7 @@ public class AccessionService {
             ResultSignature resultSignature = (ResultSignature) result.getResultSignatures().toArray()[0];
             testDetail.setProviderUuid(resultSignature.getSystemUser().getExternalId());
         } else {
-            testDetail.setProviderUuid("1");
+            testDetail.setProviderUuid(result.getSysUserId());
         }
         addRecentNotes(result.getId(), testDetail);
         testDetail.setMinNormal(result.getMinNormal() != null && result.getMinNormal() != Double.NEGATIVE_INFINITY ? result.getMinNormal() : null);
