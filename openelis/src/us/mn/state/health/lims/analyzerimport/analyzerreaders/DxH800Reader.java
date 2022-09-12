@@ -115,25 +115,31 @@ public class DxH800Reader extends AnalyzerLineInserter{
 
     public JSONObject getTestUnits() throws JSONException {
         JSONObject testUnits = new JSONObject();
-        testUnits.put("WBC", "10^9/L");
-        testUnits.put("Lymph", "10^9/L");
-        testUnits.put("Mid", "10^9/L");
-        testUnits.put("Gran", "10^9/L");
-        testUnits.put("Lymph%", "%");
-        testUnits.put("Mid%", "%");
-        testUnits.put("Gran%", "%");
-        testUnits.put("RBC", "10^12/L");
-        testUnits.put("HGB", "g/L");
-        testUnits.put("MCHC", "g/L");
-        testUnits.put("MCV", "fl");
-        testUnits.put("MCH", "pg");
-        testUnits.put("RDW-CV", "%");
+        testUnits.put("WBC", "10^3/uL");
+        testUnits.put("UWBC", "10^3/uL");
+        testUnits.put("RBC", "10^6/uL");
+        testUnits.put("HGB", "g/dL");
         testUnits.put("HCT", "%");
-        testUnits.put("PLT", "10^9/L");
+        testUnits.put("MCV", "fL");
+        testUnits.put("MCH", "pg");
+        testUnits.put("MCHC", "g/dL");
+        testUnits.put("RWD", "%");
+        testUnits.put("RDW-SD", "fL");
+        testUnits.put("PLT", "10^3/uL");
         testUnits.put("MPV", "fl");
-        testUnits.put("PDW", " ");
-        testUnits.put("PCT", "%");
-        testUnits.put("RDW-SD", "fl");
+        testUnits.put("NE", "%");
+        testUnits.put("LY", "%");
+        testUnits.put("MO", "%");
+        testUnits.put("EO", "%");
+        testUnits.put("BA", "%");
+        testUnits.put("NE#", "10^3/uL");
+        testUnits.put("LY#", "10^3/uL");
+        testUnits.put("MO#", "10^3/uL");
+        testUnits.put("EO#", "10^3/uL");
+        testUnits.put("BA#", "10^3/uL");
+
+        testUnits.put("NRBC", "/100WBC");
+        testUnits.put("NRBC#", "10^3/uL");
         return testUnits;
     }
 

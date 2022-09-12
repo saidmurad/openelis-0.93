@@ -165,20 +165,7 @@ basePath = path + "/";
                     <svg style="margin-left:-10px;margin-bottom:-20px;padding:-18px;height:50px;" id="barcode"></svg>
                 </div>
             </div>
-            <div class="col-12" style=" display: inline-block;">
-                <div id="secondLabelDetails">
-                    <div style="font-family: sans-serif; font-size: 8px; margin-right: 20px; margin-top: -4px;  height: 15px; margin-bottom: 2px">
-                        <span class='label-value' id="secondLabelPatientName"></span>
-                        <span class='label-value' style="padding-left:5px;" id="secondLabelPatientGender"></span>
-                        <span class='label-value' style="padding-left:5px;" id="secondLabelPatientAge"></span>
-                        <br/>
-                        <span class='label-value' id="secondLabelPatientId"></span>
-                        <span class='label-value' style="padding-left:20px;" id="secondLabelCollectionDate"></span>
-                    </div>
-                    <svg style="margin-left:-10px;margin-bottom:-20px;padding:-18px;height:50px;"
-                         id="secondLabelBarcode"></svg>
-                </div>
-            </div>
+
         </div>
     </div>
 
