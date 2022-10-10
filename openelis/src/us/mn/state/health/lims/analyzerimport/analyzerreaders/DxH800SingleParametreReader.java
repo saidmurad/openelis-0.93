@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class Dxc700Reader extends AnalyzerLineInserter{
+public class DxH800SingleParametreReader extends AnalyzerLineInserter{
     private static final String DATE_PATTERN = "yy-MM-dd HH:mm";
     private static final String CONTROL_ACCESSION_PREFIX = "QC-";
     private SampleDAO sampleDAO = new SampleDAOImpl();
@@ -76,9 +76,9 @@ public class Dxc700Reader extends AnalyzerLineInserter{
         String result = json.getString("result");
         AnalyzerResults analyzerResults = new AnalyzerResults();
 
-        MappedTestName mappedName = AnalyzerTestNameCache.instance().getMappedTest(AnalyzerTestNameCache.AnalyzerType.Dxc_700, testName);
+        MappedTestName mappedName = AnalyzerTestNameCache.instance().getMappedTest(AnalyzerTestNameCache.AnalyzerType.Dxh_800, testName);
         if (mappedName == null) {
-            mappedName = AnalyzerTestNameCache.instance().getEmptyMappedTestName(AnalyzerTestNameCache.AnalyzerType.Dxc_700, testName);
+            mappedName = AnalyzerTestNameCache.instance().getEmptyMappedTestName(AnalyzerTestNameCache.AnalyzerType.Dxh_800, testName);
         }
 
         analyzerResults.setAnalyzerId(mappedName.getAnalyzerId());
@@ -120,36 +120,35 @@ public class Dxc700Reader extends AnalyzerLineInserter{
 
     public JSONObject getTestUnits() throws JSONException {
         JSONObject testUnits = new JSONObject();
-        testUnits.put("GLU1N", "mg/dl");
-        testUnits.put("UREA", "mg/dl");
-        testUnits.put("CRE2N", "mg/dl");
-        testUnits.put("AST1N", "U/L");
-        testUnits.put("ALT1N", "U/L");
-        testUnits.put("ALP1N", "U/L");
-        testUnits.put("GGT2N", "U/L");
-        testUnits.put("LDH3N", "U/L");
-        testUnits.put("TBC1N", "mg/dl");
-        testUnits.put("DBC1N", "mg/dl");
-        testUnits.put("TP-1N", "g/dl");
-        testUnits.put("ALB1N", "g/dl");
-        testUnits.put("UA-1N", "mg/dl");
-        testUnits.put("CKN1N", "U/L");
-        testUnits.put("CKM1N", "ng/ml");
-        testUnits.put("AMY2N", "U/L");
-        testUnits.put("LIP1N", "U/L");
-        testUnits.put("CHO2N", "mg/dL");
-        testUnits.put("TRG1N", "mg/dl");
-        testUnits.put("LDL1N", "mg/dL");
-        testUnits.put("HDL1N", "mg/dL");
-        testUnits.put("FE-1N", "mg/dL");
-        testUnits.put("UBC1N", "mg/dL");
-        testUnits.put("PHO1N", "mg/dl");
-        testUnits.put("NA", "mmol/L");
-        testUnits.put("K", "mmol/L");
-        testUnits.put("CL", "mmol/L");
-        testUnits.put("CAZ1N", "mmol/L");
-        testUnits.put("MG-1N", "mmol/L");
-        testUnits.put("THB1G", "%");
+        testUnits.put("WBC", "10^3/uL");
+        testUnits.put("RBC", "10^6/uL");
+        testUnits.put("HGB", "g/dL");
+        testUnits.put("HCT", "%");
+        testUnits.put("MCV", "fL");
+        testUnits.put("MCH", "pg");
+        testUnits.put("MCHC", "g/dL");
+        testUnits.put("RDW", "%");
+        testUnits.put("RDW-SD", "fL");
+        testUnits.put("PLT", "10^3/uL");
+        testUnits.put("MPV", "fl");
+        testUnits.put("NE", "%");
+        testUnits.put("LY", "%");
+        testUnits.put("MO", "%");
+        testUnits.put("EO", "%");
+        testUnits.put("BA", "%");
+        testUnits.put("NE#", "10^3/uL");
+        testUnits.put("LY#", "10^3/uL");
+        testUnits.put("MO#", "10^3/uL");
+        testUnits.put("EO#", "10^3/uL");
+        testUnits.put("BA#", "10^3/uL");
+
+        testUnits.put("NRBC", "/100WBC");
+        testUnits.put("NRBC#", "10^3/uL");
+
+        testUnits.put("RET", "%");
+        testUnits.put("RET#", "10^6/uL");
+        testUnits.put("MRV", "fL");
+        testUnits.put("IRF", " ");
         return testUnits;
     }
 

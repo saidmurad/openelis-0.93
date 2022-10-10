@@ -69,9 +69,9 @@ public class DxH800Reader extends AnalyzerLineInserter{
         for(int i=0; i < jsonArray.length() ; i++) {
             JSONObject json = (JSONObject) jsonArray.get(i);
             String testName = json.getString("parameterName");
-            Date dateTime = dateFormat.parse(json.getString("dateTime").replace("T", " "));
-            Timestamp timestamp = new Timestamp(dateTime.getTime());
-            //Timestamp timestamp = new Timestamp(new Date().getTime());
+            //Date dateTime = dateFormat.parse(json.getString("dateTime").replace("T", " "));
+            //Timestamp timestamp = new Timestamp(dateTime.getTime());
+            Timestamp timestamp = new Timestamp(new Date().getTime());
             String analyzerAccessionNumber = json.getString("sampleId");
             Sample sample = sampleDAO.getSampleByAccessionNumber(analyzerAccessionNumber);
             if( sample == null)
@@ -85,6 +85,12 @@ public class DxH800Reader extends AnalyzerLineInserter{
             }
 
             analyzerResults.setAnalyzerId(mappedName.getAnalyzerId());
+            try{
+                Double resultNumber = Double.parseDouble(result);
+            }catch( NumberFormatException nfe){
+                //no-op -- defaults to NAN
+                continue;
+            }
             analyzerResults.setResult(result);
             try {
                 analyzerResults.setUnits(testUnits.getString(testName));
@@ -116,14 +122,13 @@ public class DxH800Reader extends AnalyzerLineInserter{
     public JSONObject getTestUnits() throws JSONException {
         JSONObject testUnits = new JSONObject();
         testUnits.put("WBC", "10^3/uL");
-        testUnits.put("UWBC", "10^3/uL");
         testUnits.put("RBC", "10^6/uL");
         testUnits.put("HGB", "g/dL");
         testUnits.put("HCT", "%");
         testUnits.put("MCV", "fL");
         testUnits.put("MCH", "pg");
         testUnits.put("MCHC", "g/dL");
-        testUnits.put("RWD", "%");
+        testUnits.put("RDW", "%");
         testUnits.put("RDW-SD", "fL");
         testUnits.put("PLT", "10^3/uL");
         testUnits.put("MPV", "fl");
@@ -140,6 +145,13 @@ public class DxH800Reader extends AnalyzerLineInserter{
 
         testUnits.put("NRBC", "/100WBC");
         testUnits.put("NRBC#", "10^3/uL");
+
+        testUnits.put("RET", "%");
+        testUnits.put("RET#", "10^6/uL");
+        testUnits.put("MRV", "fL");
+        testUnits.put("IRF", " ");
+
+
         return testUnits;
     }
 

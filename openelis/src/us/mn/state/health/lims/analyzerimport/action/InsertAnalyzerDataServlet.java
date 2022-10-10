@@ -30,27 +30,27 @@ public class InsertAnalyzerDataServlet extends HttpServlet {
         BufferedReader bufferedReader = request.getReader();
         JSONTokener tokener = new JSONTokener(bufferedReader);
 
-        final String authorization = request.getHeader("Authorization");
-        if (authorization != null && authorization.toLowerCase().startsWith("basic")) {
-            // Authorization: Basic base64credentials
-            String base64Credentials = authorization.substring("Basic".length()).trim();
-            byte[] credDecoded = DatatypeConverter.parseBase64Binary(base64Credentials);
-            //byte[] credDecoded = Base64.getDecoder().decode(base64Credentials);
-            String credentials = new String(credDecoded, StandardCharsets.UTF_8);
-            // credentials = username:password
-            final String[] values = credentials.split(":", 2);
-            String user = values[0];
-            String password = values[1];
-            if( !userValid(user, password)){
-                response.getWriter().print("invalid user/password");
-                response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-                return;
-            }
-        } else {
-            response.getWriter().print("Authentication is required");
-            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-            return;
-        }
+//        final String authorization = request.getHeader("Authorization");
+//        if (authorization != null && authorization.toLowerCase().startsWith("basic")) {
+//            // Authorization: Basic base64credentials
+//            String base64Credentials = authorization.substring("Basic".length()).trim();
+//            byte[] credDecoded = DatatypeConverter.parseBase64Binary(base64Credentials);
+//            //byte[] credDecoded = Base64.getDecoder().decode(base64Credentials);
+//            String credentials = new String(credDecoded, StandardCharsets.UTF_8);
+//            // credentials = username:password
+//            final String[] values = credentials.split(":", 2);
+//            String user = values[0];
+//            String password = values[1];
+//            if( !userValid(user, password)){
+//                response.getWriter().print("invalid user/password");
+//                response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+//                return;
+//            }
+//        } else {
+//            response.getWriter().print("Authentication is required");
+//            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+//            return;
+//        }
 
         try {
             DxH800Reader dxH800Reader = new DxH800Reader();
