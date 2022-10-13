@@ -42,6 +42,7 @@ public class AnalyzerTestNameCache {
 	private static final String Dxc_700_NAME = "DxC 700";
 
 	private static final String Advia_560_NAME = "Advia 560";
+	private static final String Abx_Micros_NAME = "ABX Micros ES";
 	private static final String FACSCALIBUR = "Facscalibur";
 	private static final String FACSCANTO = "FacsCanto";
 	private static final String EVOLIS = "Evolis";
@@ -56,6 +57,7 @@ public class AnalyzerTestNameCache {
 		Dxh_800,
 		Dxc_700,
 		Advia_560,
+		Abx_Micros,
 		FACSCALIBUR,
 		EVOLIS,
 		COBAS_TAQMAN,
@@ -71,6 +73,7 @@ public class AnalyzerTestNameCache {
 	private static Map<String, MappedTestName> Dxh800NameMap;
 	private static Map<String, MappedTestName> Dxc700NameMap;
 	private static Map<String, MappedTestName> Advia560NameMap;
+	private static Map<String, MappedTestName> AbxMicrosNameMap;
 	private static Map<String, MappedTestName> FacscaliburTestNameMap;
 	private static Map<String, MappedTestName> EvolisTestNameMap;
 	private static Map<String, MappedTestName> FacscantoTestNameMap;
@@ -105,6 +108,8 @@ public class AnalyzerTestNameCache {
 			return Dxc700NameMap.get(analyzerTestName);
 		case Advia_560:
 			return Advia560NameMap.get(analyzerTestName);
+		case Abx_Micros:
+			return AbxMicrosNameMap.get(analyzerTestName);
 		case FACSCALIBUR:
 			return FacscaliburTestNameMap.get(analyzerTestName);
 		case EVOLIS:
@@ -173,6 +178,7 @@ public class AnalyzerTestNameCache {
 		Dxh800NameMap = new HashMap<String,MappedTestName>();
 		Dxc700NameMap = new HashMap<String,MappedTestName>();
 		Advia560NameMap = new HashMap<String,MappedTestName>();
+		AbxMicrosNameMap = new HashMap<String,MappedTestName>();
 		FacscaliburTestNameMap = new HashMap<String,MappedTestName>();
 		EvolisTestNameMap = new HashMap<String,MappedTestName>();
 		CobasTaqmanTestNameMap = new HashMap<String, MappedTestName>();
@@ -204,6 +210,9 @@ public class AnalyzerTestNameCache {
 			}else if( Advia_560_NAME.equals(analyzer.getName())){
 				analyzerMapList.put(analyzer.getId(), Advia560NameMap);
 				analyzerIDMap.put(AnalyzerType.Advia_560, analyzer.getId());
+			}else if( Abx_Micros_NAME.equals(analyzer.getName())){
+				analyzerMapList.put(analyzer.getId(), AbxMicrosNameMap);
+				analyzerIDMap.put(AnalyzerType.Abx_Micros, analyzer.getId());
 			}else if( FACSCALIBUR.equals(analyzer.getName())){
 				analyzerMapList.put(analyzer.getId(), FacscaliburTestNameMap);
 				analyzerIDMap.put(AnalyzerType.FACSCALIBUR, analyzer.getId());
