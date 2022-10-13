@@ -1,5 +1,6 @@
 package us.mn.state.health.lims.analyzerimport.action;
 
+import us.mn.state.health.lims.analyzerimport.analyzerreaders.Advia560Reader;
 import us.mn.state.health.lims.analyzerimport.analyzerreaders.DxH800SingleParametreReader;
 import us.mn.state.health.lims.analyzerimport.analyzerreaders.Dxc700Reader;
 import us.mn.state.health.lims.common.action.IActionConstants;
@@ -58,6 +59,9 @@ public class AddAnalyzerDataServlet extends HttpServlet {
             String analyzerName =(String)  json.get("machineName");
             if (analyzerName.toLowerCase().contains("dxh 800")) {
                 DxH800SingleParametreReader reader = new DxH800SingleParametreReader();
+                reader.insertResult(json);
+            } else if (analyzerName.toLowerCase().contains("advia 560")) {
+                Advia560Reader reader = new Advia560Reader();
                 reader.insertResult(json);
             } else if (analyzerName.toLowerCase().contains("dxc 700")) {
                 Dxc700Reader reader = new Dxc700Reader();

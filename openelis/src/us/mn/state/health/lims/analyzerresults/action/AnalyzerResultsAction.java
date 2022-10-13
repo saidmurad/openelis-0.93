@@ -509,6 +509,11 @@ public class AnalyzerResultsAction extends BaseAction {
 			break;
 		}
 
+		case Advia_560: {
+			key = "banner.menu.results.advia";
+			break;
+		}
+
 		case FACSCALIBUR: {
 			key = "banner.menu.results.facscalibur";
 			break;
@@ -554,8 +559,9 @@ public class AnalyzerResultsAction extends BaseAction {
 				analyzerType = AnalyzerType.Dxh_800;
 			} else if (requestType.equals("dxc")) {
 				analyzerType = AnalyzerType.Dxc_700;
-			}
-			else if (requestType.equals("facscalibur")) {
+			} else if (requestType.equals("advia")) {
+				analyzerType = AnalyzerType.Advia_560;
+			} else if (requestType.equals("facscalibur")) {
 				analyzerType = AnalyzerType.FACSCALIBUR;
 			} else if (requestType.equals("evolis")) {
 				analyzerType = AnalyzerType.EVOLIS;
