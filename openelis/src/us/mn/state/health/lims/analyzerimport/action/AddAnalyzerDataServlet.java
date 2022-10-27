@@ -1,9 +1,6 @@
 package us.mn.state.health.lims.analyzerimport.action;
 
-import us.mn.state.health.lims.analyzerimport.analyzerreaders.AbxMicrosReader;
-import us.mn.state.health.lims.analyzerimport.analyzerreaders.Advia560Reader;
-import us.mn.state.health.lims.analyzerimport.analyzerreaders.DxH800SingleParametreReader;
-import us.mn.state.health.lims.analyzerimport.analyzerreaders.Dxc700Reader;
+import us.mn.state.health.lims.analyzerimport.analyzerreaders.*;
 import us.mn.state.health.lims.common.action.IActionConstants;
 
 import javax.servlet.ServletException;
@@ -64,7 +61,10 @@ public class AddAnalyzerDataServlet extends HttpServlet {
             } else if (analyzerName.toLowerCase().contains("advia 560")) {
                 Advia560Reader reader = new Advia560Reader();
                 reader.insertResult(json);
-            } else if (analyzerName.toLowerCase().contains("abx micros")) {
+            } else if (analyzerName.toLowerCase().contains("exl 200")) {
+                Exl200Reader reader = new Exl200Reader();
+                reader.insertResult(json);
+            } else if (analyzerName.contains("ABX ES 60")) {
                 AbxMicrosReader reader = new AbxMicrosReader();
                 reader.insertResult(json);
             } else if (analyzerName.toLowerCase().contains("dxc 700")) {

@@ -66,9 +66,9 @@ public class Advia560Reader extends AnalyzerLineInserter{
 
         //JSONObject json = (JSONObject) json;
         String testName = json.getString("parameterName").toUpperCase();
-        //Date dateTime = dateFormat.parse(json.getString("dateTime").replace("T", " "));
-        //Timestamp timestamp = new Timestamp(dateTime.getTime());
-        Timestamp timestamp = new Timestamp(new Date().getTime());
+        Date dateTime = dateFormat.parse(json.getString("dateTime").replace("T", " "));
+        Timestamp timestamp = new Timestamp(dateTime.getTime());
+        //Timestamp timestamp = new Timestamp(new Date().getTime());
         String analyzerAccessionNumber = json.getString("sampleId");
         Sample sample = sampleDAO.getSampleByAccessionNumber(analyzerAccessionNumber);
         if( sample == null)

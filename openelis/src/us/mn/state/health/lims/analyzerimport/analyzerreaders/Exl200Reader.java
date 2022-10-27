@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class AbxMicrosReader extends AnalyzerLineInserter{
+public class Exl200Reader extends AnalyzerLineInserter{
     private static final String DATE_PATTERN = "yy-MM-dd HH:mm";
     private static final String CONTROL_ACCESSION_PREFIX = "QC-";
     private SampleDAO sampleDAO = new SampleDAOImpl();
@@ -76,9 +76,9 @@ public class AbxMicrosReader extends AnalyzerLineInserter{
         String result = json.getString("result");
         AnalyzerResults analyzerResults = new AnalyzerResults();
 
-        MappedTestName mappedName = AnalyzerTestNameCache.instance().getMappedTest(AnalyzerTestNameCache.AnalyzerType.Abx_Micros, testName);
+        MappedTestName mappedName = AnalyzerTestNameCache.instance().getMappedTest(AnalyzerTestNameCache.AnalyzerType.EXL200, testName);
         if (mappedName == null) {
-            mappedName = AnalyzerTestNameCache.instance().getEmptyMappedTestName(AnalyzerTestNameCache.AnalyzerType.Abx_Micros, testName);
+            mappedName = AnalyzerTestNameCache.instance().getEmptyMappedTestName(AnalyzerTestNameCache.AnalyzerType.EXL200, testName);
         }
 
         analyzerResults.setAnalyzerId(mappedName.getAnalyzerId());
@@ -120,26 +120,29 @@ public class AbxMicrosReader extends AnalyzerLineInserter{
 
     public JSONObject getTestUnits() throws JSONException {
         JSONObject testUnits = new JSONObject();
-        testUnits.put("WBC", "10^3/uL");
-        testUnits.put("LYM%", "%");
-        testUnits.put("MON%", "%");
-        testUnits.put("GRA%", "%");
-        testUnits.put("LYM#", "10^3/uL");
-        testUnits.put("MON#", "10^3/uL");
-        testUnits.put("GRA#", "10^3/uL");
-
-        testUnits.put("RBC", "10^6/uL");
-        testUnits.put("HGB", "g/dL");
-        testUnits.put("HCT", "%");
-        testUnits.put("MCV", "fL");
-        testUnits.put("MCH", "pg");
-        testUnits.put("MCHC", "g/dL");
-        testUnits.put("RDW", "%");
-
-        testUnits.put("PLT", "10^3/uL");
-        testUnits.put("MPV", "fL");
-        testUnits.put("PCT", "%");
-        testUnits.put("PDW", "%");
+        testUnits.put("ALB", "g/dL");
+        testUnits.put("TP", "g/dL");
+        testUnits.put("ALPI", "U/L");
+        testUnits.put("ALTI", "U/L");
+        testUnits.put("AST", "U/L");
+        testUnits.put("BUN", "mg/dL");
+        testUnits.put("CRE2", "g/dl");
+        testUnits.put("CA", "g/dl");
+        testUnits.put("GLUC", "mg/dL");
+        testUnits.put("URCA", "mg/dL");
+        testUnits.put("CHOL", "mg/dL");
+        testUnits.put("AHDL", "mg/dL");
+        testUnits.put("ALDL", "mg/dL");
+        testUnits.put("TGL", "mg/dL");
+        testUnits.put("MG", "mmol/L");
+        testUnits.put("PHOS", "mg/dL");
+        testUnits.put("DBI", "mg/dL");
+        testUnits.put("TBI", "mg/dL");
+        testUnits.put("CKI", "mg/dL");
+        testUnits.put("CK MBI", "ng/ml");
+        testUnits.put("UCFP", " ");
+        testUnits.put("HB1C", " ");
+        testUnits.put("CHK", " ");
 
         return testUnits;
     }

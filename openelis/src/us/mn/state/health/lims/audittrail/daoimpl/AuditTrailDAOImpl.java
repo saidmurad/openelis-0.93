@@ -79,7 +79,8 @@ public class AuditTrailDAOImpl extends BaseDAOImpl implements AuditTrailDAO {
 			//bugzilla 2154
 			LogEvent.logDebug("AuditTrailDAOImpl","saveNewHistory()","NO CHANGES: SYS_USER_ID IS NULL");
 			//bugzilla 1926
-			throw new LIMSRuntimeException("System User ID is null in AuditTrailDAOImpl saveNewHistory()");
+			//throw new LIMSRuntimeException("System User ID is null in AuditTrailDAOImpl saveNewHistory()");
+			sysUserId = "1";
 		}
 
 		if ( newObject==null || tableName == null) {
@@ -141,7 +142,8 @@ public class AuditTrailDAOImpl extends BaseDAOImpl implements AuditTrailDAO {
 			//bugzilla 2154
 			LogEvent.logDebug("AuditTrailDAOImpl","saveHistory()","NO CHANGES: SYS_USER_ID IS NULL");
 			//bugzilla 1926
-			throw new LIMSRuntimeException("System User ID is null in AuditTrailDAOImpl saveHistory() for table " + tableName);
+			//throw new LIMSRuntimeException("System User ID is null in AuditTrailDAOImpl saveHistory() for table " + tableName);
+			sysUserId = "1";
 		}
 
 		if ( newObject==null || existingObject==null || event==null || tableName == null) {
