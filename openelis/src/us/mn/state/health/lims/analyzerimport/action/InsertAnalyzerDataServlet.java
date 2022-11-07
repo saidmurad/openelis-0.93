@@ -13,7 +13,7 @@ import java.nio.charset.StandardCharsets;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
-import us.mn.state.health.lims.analyzerimport.analyzerreaders.DxH800Reader;
+import us.mn.state.health.lims.analyzerimport.analyzerreaders.DxhAllParametreReader;
 import us.mn.state.health.lims.login.dao.LoginDAO;
 import us.mn.state.health.lims.login.daoimpl.LoginDAOImpl;
 import us.mn.state.health.lims.login.valueholder.Login;
@@ -53,15 +53,12 @@ public class InsertAnalyzerDataServlet extends HttpServlet {
 //        }
 
         try {
-            DxH800Reader dxH800Reader = new DxH800Reader();
-            JSONArray jsonArray = new JSONArray(tokener);
-            String analyzerName =(String) ((JSONObject) jsonArray.get(0)).get("machineName");
+            JSONObject json = new JSONObject(tokener);
+            String analyzerName =(String)  json.get("machineName");
             if (analyzerName.toLowerCase().contains("dxh 800")) {
-                dxH800Reader.insertResult(jsonArray);
-            } else if (analyzerName.toLowerCase().contains("kalazer")) {
-                dxH800Reader.insertResult(jsonArray);
-            }
-            else {
+                DxhAllParametreReader dxH800Reader = new DxhAllParametreReader();
+                dxH800Reader.insertResult(json);
+            } else {
                 response.getWriter().print("Unknown analyzer with name: " + analyzerName);
                 response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                 return;
