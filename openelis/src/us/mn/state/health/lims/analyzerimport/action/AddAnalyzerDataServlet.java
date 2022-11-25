@@ -67,6 +67,12 @@ public class AddAnalyzerDataServlet extends HttpServlet {
             } else if (analyzerName.contains("ABX ES 60")) {
                 AbxMicrosReader reader = new AbxMicrosReader();
                 reader.insertResult(json);
+            } else if (analyzerName.contains("SysmexXN550")) {
+                SysmexXNReader reader = new SysmexXNReader();
+                reader.insertResult(json);
+            } else if (analyzerName.contains("cobas c311")) {
+                CobasC311JsonReader reader = new CobasC311JsonReader();
+                reader.insertResult(json);
             } else if (analyzerName.toLowerCase().contains("dxc 700")) {
                 Dxc700Reader reader = new Dxc700Reader();
                 reader.insertResult(json);

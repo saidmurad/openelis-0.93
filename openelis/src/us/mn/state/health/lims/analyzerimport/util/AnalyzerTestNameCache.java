@@ -43,6 +43,8 @@ public class AnalyzerTestNameCache {
 
 	private static final String Advia_560_NAME = "Advia 560";
 	private static final String Abx_Micros_NAME = "ABX Micros ES";
+	private static final String Sysmex_XN_NAME = "SysmexXN550";
+	private static final String COBASC311_NAME = "Cobas C 311";
 	private static final String EXL200_NAME = "EXL 200";
 	private static final String FACSCALIBUR = "Facscalibur";
 	private static final String FACSCANTO = "FacsCanto";
@@ -59,6 +61,8 @@ public class AnalyzerTestNameCache {
 		Dxc_700,
 		Advia_560,
 		Abx_Micros,
+		SYSMEX_XN,
+		COBASC311,
 		EXL200,
 		FACSCALIBUR,
 		EVOLIS,
@@ -76,6 +80,8 @@ public class AnalyzerTestNameCache {
 	private static Map<String, MappedTestName> Dxc700NameMap;
 	private static Map<String, MappedTestName> Advia560NameMap;
 	private static Map<String, MappedTestName> AbxMicrosNameMap;
+	private static Map<String, MappedTestName> SysmexXN550NameMap;
+	private static Map<String, MappedTestName> COBASC311NameMap;
 	private static Map<String, MappedTestName> EXL200NameMap;
 	private static Map<String, MappedTestName> FacscaliburTestNameMap;
 	private static Map<String, MappedTestName> EvolisTestNameMap;
@@ -113,6 +119,10 @@ public class AnalyzerTestNameCache {
 			return Advia560NameMap.get(analyzerTestName);
 		case Abx_Micros:
 			return AbxMicrosNameMap.get(analyzerTestName);
+		case SYSMEX_XN:
+			return SysmexXN550NameMap.get(analyzerTestName);
+		case COBASC311:
+			return COBASC311NameMap.get(analyzerTestName);	
 		case EXL200:
 			return EXL200NameMap.get(analyzerTestName);
 		case FACSCALIBUR:
@@ -184,6 +194,8 @@ public class AnalyzerTestNameCache {
 		Dxc700NameMap = new HashMap<String,MappedTestName>();
 		Advia560NameMap = new HashMap<String,MappedTestName>();
 		AbxMicrosNameMap = new HashMap<String,MappedTestName>();
+		SysmexXN550NameMap = new HashMap<String,MappedTestName>();
+		COBASC311NameMap = new HashMap<String,MappedTestName>();
 		EXL200NameMap = new HashMap<String,MappedTestName>();
 		FacscaliburTestNameMap = new HashMap<String,MappedTestName>();
 		EvolisTestNameMap = new HashMap<String,MappedTestName>();
@@ -219,6 +231,12 @@ public class AnalyzerTestNameCache {
 			}else if( Abx_Micros_NAME.equals(analyzer.getName())){
 				analyzerMapList.put(analyzer.getId(), AbxMicrosNameMap);
 				analyzerIDMap.put(AnalyzerType.Abx_Micros, analyzer.getId());
+			}else if( Sysmex_XN_NAME.equals(analyzer.getName())){
+				analyzerMapList.put(analyzer.getId(), SysmexXN550NameMap);
+				analyzerIDMap.put(AnalyzerType.SYSMEX_XN, analyzer.getId());
+			}else if( COBASC311_NAME.equals(analyzer.getName())){
+				analyzerMapList.put(analyzer.getId(), COBASC311NameMap);
+				analyzerIDMap.put(AnalyzerType.COBASC311, analyzer.getId());	
 			}else if( EXL200_NAME.equals(analyzer.getName())){
 				analyzerMapList.put(analyzer.getId(), EXL200NameMap);
 				analyzerIDMap.put(AnalyzerType.EXL200, analyzer.getId());
