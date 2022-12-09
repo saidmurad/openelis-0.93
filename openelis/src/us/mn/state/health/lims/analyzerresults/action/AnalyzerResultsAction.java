@@ -519,6 +519,11 @@ public class AnalyzerResultsAction extends BaseAction {
 			break;
 		}
 
+		case Dxi_800: {
+			key = "banner.menu.results.dxi_800";
+			break;
+		}
+
 		case SYSMEX_XN: {
 			key = "banner.menu.results.sysmex_xn";
 			break;
@@ -583,6 +588,8 @@ public class AnalyzerResultsAction extends BaseAction {
 				analyzerType = AnalyzerType.Advia_560;
 			} else if (requestType.equals("abx")) {
 				analyzerType = AnalyzerType.Abx_Micros;
+			} else if (requestType.equals("dxi_800")) {
+				analyzerType = AnalyzerType.Dxi_800;
 			} else if (requestType.equals("sysmex_xn")) {
 				analyzerType = AnalyzerType.SYSMEX_XN;
 			} else if (requestType.equals("cobas_c311")) {
