@@ -73,6 +73,9 @@ public class AddAnalyzerDataServlet extends HttpServlet {
             } else if (analyzerName.contains("SysmexXN550")) {
                 SysmexXNReader reader = new SysmexXNReader();
                 reader.insertResult(json);
+            } else if (analyzerName.toLowerCase().contains("bc3000")) {
+                BC3000Reader reader = new BC3000Reader();
+                reader.insertResult(json);
             } else if (analyzerName.toLowerCase().contains("cobas c311")) {
                 CobasC311JsonReader reader = new CobasC311JsonReader();
                 reader.insertResult(json);

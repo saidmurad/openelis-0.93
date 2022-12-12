@@ -529,6 +529,11 @@ public class AnalyzerResultsAction extends BaseAction {
 			break;
 		}
 
+		case BC3000: {
+			key = "banner.menu.results.bc";
+			break;
+		}
+
 		case COBASC311: {
 			key = "banner.menu.results.cobas_c311";
 			break;
@@ -592,6 +597,8 @@ public class AnalyzerResultsAction extends BaseAction {
 				analyzerType = AnalyzerType.Dxi_800;
 			} else if (requestType.equals("sysmex_xn")) {
 				analyzerType = AnalyzerType.SYSMEX_XN;
+			} else if (requestType.equals("bc")) {
+				analyzerType = AnalyzerType.BC3000;
 			} else if (requestType.equals("cobas_c311")) {
 				analyzerType = AnalyzerType.COBASC311;	
 			} else if (requestType.equals("exl")) {
