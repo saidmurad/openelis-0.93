@@ -143,6 +143,11 @@ public class Exl200Reader extends AnalyzerLineInserter{
         testUnits.put("UCFP", " ");
         testUnits.put("HB1C", " ");
         testUnits.put("CHK", " ");
+        testUnits.put("NA", "mmol/L");
+        testUnits.put("MG", " ");
+        testUnits.put("Phos", " ");
+        testUnits.put("K", "mmol/L");
+        testUnits.put("CL", "mmol/L");
 
         return testUnits;
     }
