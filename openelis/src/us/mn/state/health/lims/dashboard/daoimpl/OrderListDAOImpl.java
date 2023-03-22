@@ -79,6 +79,39 @@ public class OrderListDAOImpl implements OrderListDAO {
     }
 
     @Override
+    public List<String> getTestsByAccession(String accession_number) {
+        List<String> tests = new ArrayList<>();
+        String condition = " accession_number = "+"'"+ accession_number + "'";
+        String sqlForTestsByAccessionNumber = createSqlStringForTestsByAccssionNumber(condition);
+        PreparedStatement preparedStatement = null;
+        ResultSet testsResultset = null;
+        try {
+            preparedStatement = getPreparedStatement(sqlForTestsByAccessionNumber);
+            //Dont'use current_date in prepared_statement. I know its weird, but
+            //The session fires query with current_date = date_on_which_session_was_created and gives wron result on next daypreparedStatement.setTimestamp(1, DateUtil.getTodayAsTimestamp());
+            //preparedStatement.setTimestamp(1, DateUtil.getTodayAsTimestamp());
+            //preparedStatement.setTimestamp(2, DateUtil.getTodayAsTimestamp());
+            testsResultset = preparedStatement.executeQuery();
+            while (testsResultset.next()) {
+                tests.add(testsResultset.getString("tests"));
+                tests.add(testsResultset.getString("name"));
+                tests.add(testsResultset.getString("gender"));
+                String birthDateTime = testsResultset.getString("birth_date");
+                String day = birthDateTime.substring(0, birthDateTime.indexOf(" "));
+                String[] splittedDate = day.split("-");
+                String birthDate = splittedDate[2] + "/" + splittedDate[1] + "/" + splittedDate[0];
+                tests.add(birthDate);
+            }
+            return tests;
+        } catch (SQLException e) {
+            throw new LIMSRuntimeException(e);
+        } finally {
+            closeResultSet(testsResultset);
+            closePreparedStatement(preparedStatement);
+        }
+    }
+
+    @Override
     public List<Order> getAllPendingBeforeToday() {
         String condition = "sample.accession_number is not null and analysis.status_id IN (" + getAllAnalysisStatus() + ")";
         return getOrders(orderListDAOHelper.createSqlForPendingBeforeToday(condition, "sample.accession_number",
@@ -256,5 +289,28 @@ public class OrderListDAOImpl implements OrderListDAO {
         analysisStatuses.add(parseInt(getStatusID(finalized)));
         analysisStatuses.add(parseInt(getStatusID(finalizedRO)));
         return StringUtils.join(analysisStatuses.iterator(), ',');
+    }
+
+    private String createSqlStringForTestsByAccssionNumber(String condition) {
+        return "SELECT \n" +
+                "string_agg(distinct test_panel, ', ') as tests, \n" +
+                "name, \n" +
+                "gender, \n" +
+                "birth_date FROM \n" +
+                "(SELECT CONCAT(pe.first_name, ' ', pe.middle_name, ' ', pe.last_name)  as name, \n" +
+                " pa.gender as gender, \n" +
+                " pa.birth_date as birth_date, \n" +
+                " CASE WHEN pan.name is not null THEN pan.name ELSE t.name END as test_panel \n" +
+                " FROM sample s \n" +
+                " JOIN sample_item si on si.samp_id = s.id \n" +
+                " JOIN analysis a on a.sampitem_id = si.id \n" +
+                " JOIN sample_human sh on  sh.samp_id = s.id \n" +
+                " JOIN patient pa on pa.id = sh.patient_id \n" +
+                " JOIN person  pe on pe.id = pa.person_id \n" +
+                " JOIN test    t on t.id = a.test_id \n" +
+                " LEFT JOIN panel   pan on pan.id = a.panel_id \n" +
+                " WHERE "+condition+ ") temp \n" +
+                " GROUP BY temp.name, gender, birth_date;";
+
     }
 }

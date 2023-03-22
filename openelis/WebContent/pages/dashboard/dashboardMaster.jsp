@@ -156,12 +156,16 @@ basePath = path + "/";
                 <div id="labelDetails">
                     <div style="font-family: sans-serif; font-size: 8px; margin-right: 15px; margin-top:-4px;  height: 15px; margin-bottom: 2px">
                         <span class='label-value' id="patientName"></span>
-                        <span class='label-value' style="padding-left:5px;" id="patientGender"></span>
-                        <span class='label-value' style="padding-left:5px;" id="patientAge"></span>
                         <br/>
                         <span class='label-value' id="labelPatientId"></span>
-                        <span class='label-value' style="padding-left:20px;" id="collectionDate"></span>
+                        <span class='label-value' style="padding-left:5px;" id="patientGender"></span>
+                        <span class='label-value' style="padding-left:5px;" id="patientAge"></span>
+
+                        <!-- <span class='label-value' style="padding-left:20px;" id="collectionDate"></span> -->
                     </div>
+                   <div style="font-family: sans-serif; font-size: 8px; margin-right: 15px; margin-top:4px; margin-bottom:3px;  height: 15px; margin-bottom: 2px">
+                       <span class='label-value' id="tests"></span>
+                   </div>
                     <svg style="margin-left:-10px;margin-bottom:-20px;padding:-18px;height:50px;" id="barcode"></svg>
                 </div>
             </div>
@@ -322,27 +326,23 @@ basePath = path + "/";
 
 
 
-    var showLabelDetails = function(firstName, middleName, lastName,gender, age,stn,collectionDate) {
-        jQuery("#patientName").text(firstName + " " + lastName[0]);
-        jQuery("#secondLabelPatientName").text(firstName + " " + lastName[0]);
-        if(gender==='M') {
+    var showLabelDetails = function(patientName, tests, gender, birthDate, stn,collectionDate) {
+        jQuery("#patientName").text(patientName);
+        if(patientName==='M') {
             gender='Male'
         }
-        if(gender==='F') {
+        if(patientName==='F') {
             gender='Female'
         }
-        if(gender=='O') {
+        if(patientName=='O') {
             gender='Other'
         }
         jQuery("#patientGender").text(gender);
-        jQuery("#secondLabelPatientGender").text(gender);
-        jQuery("#patientAge").text(age);
-        jQuery("#secondLabelPatientAge").text(age);
+        jQuery("#patientAge").text(birthDate);
         jQuery('#labelPatientId').text(stn);
-        jQuery('#secondLabelPatientId').text(stn);
         jQuery('#collectionDate').text(collectionDate);
-        jQuery('#secondLabelCollectionDate').text(collectionDate);
 
+        jQuery('#tests').text(tests);
     }
 
     var showLabelDetailsWithoutPatientDetails = function(stn,collectionDate) {
@@ -356,17 +356,16 @@ basePath = path + "/";
     function labelSelected(stNumber, an,collectionDateStr,jQuery) {
         new Ajax.Request ('ajaxQueryXML', {
             method: 'get',
-            parameters: "provider=PatientSearchPopulateProvider&stNumber=" + stNumber,
+            parameters: "provider=OrderedTestsPopulateProvider&accessionNumber=" + an,
             onSuccess:  function onLabelSelected(xhr) {
                 var datePattern = '<%=SystemConfiguration.getInstance().getPatternForDateLocale() %>';
                 var showPatientDetails = '<%=showPatientsDetailsInSampleLabelPrint%>';
                 if(showPatientDetails==='true') {
                     showLabelDetails(
-                        OpenElis.Utils.getXMLValue(xhr.responseXML, 'firstName'),
-                        OpenElis.Utils.getXMLValue(xhr.responseXML, 'middleName'),
-                        OpenElis.Utils.getXMLValue(xhr.responseXML, 'lastName'),
+                        OpenElis.Utils.getXMLValue(xhr.responseXML, 'patientName'),
+                        OpenElis.Utils.getXMLValue(xhr.responseXML, 'tests'),
                         OpenElis.Utils.getXMLValue(xhr.responseXML, 'gender'),
-                        OpenElis.Utils.calculateAge(OpenElis.Utils.getXMLValue(xhr.responseXML, 'dob'), datePattern),
+                        OpenElis.Utils.calculateAge(OpenElis.Utils.getXMLValue(xhr.responseXML, 'birth_date'), datePattern),
                         stNumber,
                         collectionDateStr
                     );
