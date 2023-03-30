@@ -82,6 +82,9 @@ public class AddAnalyzerDataServlet extends HttpServlet {
             } else if (analyzerName.toLowerCase().contains("dxc 700")) {
                 Dxc700Reader reader = new Dxc700Reader();
                 reader.insertResult(json);
+            } else if (analyzerName.toLowerCase().contains("genexpert")) {
+                GeneXpertReader reader = new GeneXpertReader();
+                reader.insertResult(json);
             } else {
                 response.getWriter().print("Unknown analyzer with name: " + analyzerName);
                 response.setStatus(HttpServletResponse.SC_BAD_REQUEST);

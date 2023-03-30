@@ -534,6 +534,12 @@ public class AnalyzerResultsAction extends BaseAction {
 			break;
 		}
 
+		case GENEXPERT: {
+			key = "banner.menu.results.genexpert";
+			break;
+		}
+
+
 		case COBASC311: {
 			key = "banner.menu.results.cobas_c311";
 			break;
@@ -603,6 +609,8 @@ public class AnalyzerResultsAction extends BaseAction {
 				analyzerType = AnalyzerType.COBASC311;	
 			} else if (requestType.equals("exl")) {
 				analyzerType = AnalyzerType.EXL200;
+			} else if (requestType.equals("genexpert")) {
+				analyzerType = AnalyzerType.GENEXPERT;
 			} else if (requestType.equals("facscalibur")) {
 				analyzerType = AnalyzerType.FACSCALIBUR;
 			} else if (requestType.equals("evolis")) {
