@@ -163,7 +163,7 @@ basePath = path + "/";
 
                         <!-- <span class='label-value' style="padding-left:20px;" id="collectionDate"></span> -->
                     </div>
-                   <div style="font-family: sans-serif; font-size: 8px; margin-right: 15px; margin-top:4px; margin-bottom:3px;  height: 15px; margin-bottom: 2px">
+                   <div style="font-family: sans-serif; font-size: 8px; margin-right: 15px; margin-top:4px; height: 15px; margin-bottom: 14px">
                        <span class='label-value' id="tests"></span>
                    </div>
                     <svg style="margin-left:-10px;margin-bottom:-20px;padding:-18px;height:50px;" id="barcode"></svg>

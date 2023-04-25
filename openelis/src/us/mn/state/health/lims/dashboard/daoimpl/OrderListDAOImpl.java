@@ -309,7 +309,7 @@ public class OrderListDAOImpl implements OrderListDAO {
                 " JOIN person  pe on pe.id = pa.person_id \n" +
                 " JOIN test    t on t.id = a.test_id \n" +
                 " LEFT JOIN panel   pan on pan.id = a.panel_id \n" +
-                " WHERE "+condition+ ") temp \n" +
+                " WHERE "+condition+ " order by si.id) temp \n" +
                 " GROUP BY temp.name, gender, birth_date;";
 
     }
