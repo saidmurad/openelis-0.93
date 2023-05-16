@@ -114,7 +114,7 @@ public class OrderListDAOImpl implements OrderListDAO {
     @Override
     public List<Order> getAllPendingBeforeToday() {
         String condition = "sample.accession_number is not null and analysis.status_id IN (" + getAllAnalysisStatus() + ")";
-        return getOrders(orderListDAOHelper.createSqlForPendingBeforeToday(condition, "sample.accession_number",
+        return getOrders(orderListDAOHelper.createSqlForPendingBeforeToday(condition, "sample.collection_date",
                 getPendingAnalysisStatus(), getPendingValidationAnalysisStatus(), getReferredAnalysisStatus(),analysesInFinalStatus()));
     }
 
