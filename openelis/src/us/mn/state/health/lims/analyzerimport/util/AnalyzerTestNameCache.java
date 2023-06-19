@@ -46,6 +46,7 @@ public class AnalyzerTestNameCache {
 	private static final String Dxi_800_NAME = "DxI 800";
 	private static final String Sysmex_XN_NAME = "SysmexXN550";
 	private static final String Sysmex_KX_NAME = "Sysmex KX-21N";
+	private static final String Humastar200_NAME = "HumaStar 200";
 	private static final String BC3000_NAME = "BC3000";
 	private static final String COBASC311_NAME = "Cobas C 311";
 	private static final String EXL200_NAME = "EXL 200";
@@ -67,6 +68,7 @@ public class AnalyzerTestNameCache {
 		Abx_Micros,
 		Dxi_800,
 		SYSMEX_XN,
+		Humastar200,
 		SYSMEX_KX,
 		BC3000,
 		COBASC311,
@@ -91,6 +93,7 @@ public class AnalyzerTestNameCache {
 	private static Map<String, MappedTestName> Dxi800NameMap;
 	private static Map<String, MappedTestName> SysmexXN550NameMap;
 	private static Map<String, MappedTestName> SysmexKX21NNameMap;
+	private static Map<String, MappedTestName> Humastar200NameMap;
 	private static Map<String, MappedTestName> BC3000TestNameMap;
 	private static Map<String, MappedTestName> COBASC311NameMap;
 	private static Map<String, MappedTestName> EXL200NameMap;
@@ -137,6 +140,8 @@ public class AnalyzerTestNameCache {
 			return SysmexXN550NameMap.get(analyzerTestName);
 		case SYSMEX_KX:
 			return SysmexKX21NNameMap.get(analyzerTestName);
+		case Humastar200:
+			return Humastar200NameMap.get(analyzerTestName);
 		case BC3000:
 			return BC3000TestNameMap.get(analyzerTestName);
 		case COBASC311:
@@ -191,6 +196,8 @@ public class AnalyzerTestNameCache {
 			return GENEXPERTTestNameMap;
 		case SYSMEX_XN:
 			return SysmexXN550NameMap;
+		case Humastar200:
+			return Humastar200NameMap;
 		case SYSMEX_KX:
 			return SysmexKX21NNameMap;
 		case BC3000:
@@ -235,6 +242,7 @@ public class AnalyzerTestNameCache {
 		Dxi800NameMap = new HashMap<String,MappedTestName>();
 		SysmexXN550NameMap = new HashMap<String,MappedTestName>();
 		SysmexKX21NNameMap = new HashMap<String,MappedTestName>();
+		Humastar200NameMap = new HashMap<String,MappedTestName>();
 		BC3000TestNameMap = new HashMap<String,MappedTestName>();
 		COBASC311NameMap = new HashMap<String,MappedTestName>();
 		EXL200NameMap = new HashMap<String,MappedTestName>();
@@ -282,6 +290,9 @@ public class AnalyzerTestNameCache {
 			}else if( Sysmex_KX_NAME.equals(analyzer.getName())){
 				analyzerMapList.put(analyzer.getId(), SysmexKX21NNameMap);
 				analyzerIDMap.put(AnalyzerType.SYSMEX_KX, analyzer.getId());
+			}else if( Humastar200_NAME.equals(analyzer.getName())){
+				analyzerMapList.put(analyzer.getId(), Humastar200NameMap);
+				analyzerIDMap.put(AnalyzerType.Humastar200, analyzer.getId());
 			}else if( BC3000_NAME.equals(analyzer.getName())){
 				analyzerMapList.put(analyzer.getId(), BC3000TestNameMap);
 				analyzerIDMap.put(AnalyzerType.BC3000, analyzer.getId());

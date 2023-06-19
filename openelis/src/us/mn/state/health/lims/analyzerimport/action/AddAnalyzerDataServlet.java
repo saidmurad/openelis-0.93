@@ -88,6 +88,9 @@ public class AddAnalyzerDataServlet extends HttpServlet {
             } else if (analyzerName.toLowerCase().contains("sysmexkx")) {
                 SysmexKXReader reader = new SysmexKXReader();
                 reader.insertResult(json);
+            } else if (analyzerName.toLowerCase().contains("humastar")) {
+                Humastar200 reader = new Humastar200();
+                reader.insertResult(json);
             } else {
                 response.getWriter().print("Unknown analyzer with name: " + analyzerName);
                 response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
