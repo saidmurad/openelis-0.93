@@ -539,6 +539,11 @@ public class AnalyzerResultsAction extends BaseAction {
 			break;
 		}
 
+		case DiruiCsT240: {
+			key = "banner.menu.results.dirui_cs";
+			break;
+		}
+
 		case BC3000: {
 			key = "banner.menu.results.bc";
 			break;
@@ -617,6 +622,8 @@ public class AnalyzerResultsAction extends BaseAction {
 				analyzerType = AnalyzerType.SYSMEX_KX;
 			} else if (requestType.equals("humastar")) {
 				analyzerType = AnalyzerType.Humastar200;
+			} else if (requestType.equals("dirui_cs")) {
+				analyzerType = AnalyzerType.DiruiCsT240;
 			} else if (requestType.equals("bc")) {
 				analyzerType = AnalyzerType.BC3000;
 			} else if (requestType.equals("cobas_c311")) {
